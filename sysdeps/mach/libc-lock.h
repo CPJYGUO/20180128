@@ -22,7 +22,6 @@
 #ifdef _LIBC
 
 #include <tls.h>
-#include <cthreads.h>
 #include <lowlevellock.h>
 
 /* The locking here is very inexpensive, even for inlining. */
@@ -46,9 +45,6 @@ extern char __libc_lock_self0[0];
 typedef struct __libc_lock_opaque__ __libc_lock_t;
 typedef struct __libc_lock_recursive_opaque__ __libc_lock_recursive_t;
 #endif
-
-/* Type for key of thread specific data.  */
-typedef cthread_key_t __libc_key_t;
 
 /* Define a lock variable NAME with storage class CLASS.  The lock must be
    initialized with __libc_lock_init before it can be used (or define it
@@ -225,10 +221,6 @@ struct __libc_once
 /* We need portable names for some functions.  E.g., when they are
    used as argument to __libc_cleanup_region_start.  */
 #define __libc_mutex_unlock __libc_lock_unlock
-
-#define __libc_key_create(KEY,DEST) cthread_keycreate (KEY)
-#define __libc_setspecific(KEY,VAL) cthread_setspecific (KEY, VAL)
-void *__libc_getspecific (__libc_key_t key);
 
 /* Hide the definitions which are only supposed to be used inside libc in
    a separate file.  This file is not present in the installation!  */

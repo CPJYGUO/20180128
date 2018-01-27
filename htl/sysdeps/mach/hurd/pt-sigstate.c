@@ -35,7 +35,7 @@ __pthread_sigstate (struct __pthread *thread, int how,
   ss = _hurd_thread_sigstate (thread->kernel_thread);
   assert (ss);
 
-  __pthread_spin_lock (&ss->lock);
+  __spin_lock (&ss->lock);
 
   if (oset)
     *oset = ss->blocked;
@@ -66,7 +66,7 @@ __pthread_sigstate (struct __pthread *thread, int how,
   if (! err && clear_pending)
     __sigemptyset (&ss->pending);
 
-  __pthread_spin_unlock (&ss->lock);
+  __spin_unlock (&ss->lock);
 
   return err;
 }

@@ -46,6 +46,9 @@ __spin_lock_init (__spin_lock_t *__lock)
 #endif
 
 
+/* Lock LOCK, blocking if we can't get it.  */
+extern void __spin_lock_solid (__spin_lock_t *__lock);
+
 /* Lock the spin lock LOCK.  */
 
 void __spin_lock (__spin_lock_t *__lock);

@@ -103,7 +103,10 @@ typedef cthread_key_t __libc_key_t;
   __libc_lock_define_initialized_recursive (CLASS, NAME)
 
 #define __libc_lock_init_recursive(NAME)   \
-  ((NAME) = (__libc_lock_recursive_t)_LIBC_LOCK_RECURSIVE_INITIALIZER, 0)
+  ({   \
+     (NAME) = (__libc_lock_recursive_t)_LIBC_LOCK_RECURSIVE_INITIALIZER;   \
+     0;   \
+  })
 
 #define __libc_lock_trylock_recursive(NAME)   \
   ({   \
